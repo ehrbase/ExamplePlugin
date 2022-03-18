@@ -30,8 +30,12 @@ public class ExampleService {
 
     public void add(Composition composition){
 
+    try {
         createdMap.put(((PartyIdentified)composition.getComposer()).getName(),knowledgeCacheService.getQueryOptMetaData(composition.getArchetypeDetails().getTemplateId().getValue()).getTree().getName());
     System.out.println(createdMap);
+    } catch (RuntimeException e) {
+      e.printStackTrace();
+    }
     }
 
     @PostConstruct

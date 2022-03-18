@@ -1,13 +1,10 @@
 package org.ehrbase.example_plugin;
 
 import com.nedap.archie.rm.composition.Composition;
-import com.nedap.archie.rm.generic.PartyIdentified;
 import org.ehrbase.service.KnowledgeCacheService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Stefan Spiska
@@ -28,7 +25,11 @@ public class ExampleComponent {
 
     public void add(Composition composition){
 
+    try {
     System.out.println(knowledgeCacheService.getQueryOptMetaData(composition.getArchetypeDetails().getTemplateId().getValue()).getLanguages());
+    } catch (RuntimeException e) {
+      e.printStackTrace();
+    }
     }
 
     @PostConstruct
