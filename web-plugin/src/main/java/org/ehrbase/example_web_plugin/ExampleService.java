@@ -4,6 +4,7 @@ import com.nedap.archie.rm.composition.Composition;
 import com.nedap.archie.rm.generic.PartyIdentified;
 import org.ehrbase.service.KnowledgeCacheService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
@@ -41,5 +42,6 @@ public class ExampleService {
     @PostConstruct
     public void init(){
     System.out.println(this.getClass().getName());
+    Assert.notNull(knowledgeCacheService, "Injection of knowledgeCacheService failed");
     }
 }

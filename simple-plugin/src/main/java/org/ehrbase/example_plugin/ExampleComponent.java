@@ -3,6 +3,7 @@ package org.ehrbase.example_plugin;
 import com.nedap.archie.rm.composition.Composition;
 import org.ehrbase.service.KnowledgeCacheService;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 import javax.annotation.PostConstruct;
 
@@ -35,5 +36,7 @@ public class ExampleComponent {
     @PostConstruct
     public void init(){
     System.out.println(this.getClass().getName());
+
+    Assert.notNull(knowledgeCacheService, "Injection of knowledgeCacheService failed");
     }
 }
