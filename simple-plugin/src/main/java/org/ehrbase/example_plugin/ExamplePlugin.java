@@ -30,11 +30,12 @@ public class ExamplePlugin extends NonWebMvcEhrBasePlugin {
     applicationContext.setClassLoader(getWrapper().getPluginClassLoader());
     applicationContext.register(SpringConfiguration.class);
 
+    // The ApplicationContext will be automatically refreshed when the plugin starts
     return applicationContext;
   }
 
   @Override
   public List<String> getConfigFileNames() {
-    return List.of("test.properties");
+    return List.of("test.yml");
   }
 }

@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * @author Stefan Spiska
  */
-@ConfigurationProperties(prefix = "test")
+@ConfigurationProperties(prefix = "test.sub1")
 public class TestProperty {
 
   private String property;
@@ -16,5 +16,10 @@ public class TestProperty {
 
   public void setProperty(String property) {
     this.property = property;
+  }
+
+  @Override
+  public String toString() {
+    return "TestProperty{" + "property='" + property + '\'' + '}';
   }
 }

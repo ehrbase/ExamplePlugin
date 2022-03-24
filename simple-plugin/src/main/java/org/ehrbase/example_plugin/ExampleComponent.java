@@ -38,9 +38,8 @@ public class ExampleComponent {
     @PostConstruct
     public void init(){
     System.out.println(this.getClass().getName());
-    System.out.println("env");
+    System.out.println("env:");
     System.out.println(testProperty);
-    System.out.println(testProperty.getProperty());
 
     Assert.notNull(knowledgeCacheService, "Injection of knowledgeCacheService failed");
     }

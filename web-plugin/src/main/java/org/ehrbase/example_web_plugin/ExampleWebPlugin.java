@@ -4,9 +4,10 @@ import org.ehrbase.plugin.WebMvcEhrBasePlugin;
 import org.pf4j.PluginWrapper;
 import org.pf4j.spring.SpringPluginManager;
 import org.springframework.context.ApplicationContext;
-import org.springframework.core.env.PropertySource;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
+
+import java.util.List;
 
 /**
  * @author Stefan Spiska
@@ -17,12 +18,8 @@ public class ExampleWebPlugin extends WebMvcEhrBasePlugin {
     super(wrapper);
   }
 
-  DispatcherServlet dispatcherServlet;
-
   @Override
-  public DispatcherServlet getDispatcherServlet() {
-
-    if (dispatcherServlet == null) {
+  public DispatcherServlet buildDispatcherServlet() {
 
       ApplicationContext parentContext =
           ((SpringPluginManager) getWrapper().getPluginManager()).getApplicationContext();
@@ -34,20 +31,19 @@ public class ExampleWebPlugin extends WebMvcEhrBasePlugin {
 
       applicationContext.register(SpringConfiguration.class);
 
-      applicationContext
-          .getEnvironment()
-          .getPropertySources()
-          .addLast(new PropertySource<Object>() {});
-      // The ApplicationContext will be automatically refresh when the DispatcherServlet will be
-      // initialized.
-      dispatcherServlet = new DispatcherServlet(applicationContext);
-    }
-
-    return dispatcherServlet;
+    // The ApplicationContext will be automatically refreshed when the DispatcherServlet will be
+    // initialized.
+    return new DispatcherServlet(applicationContext);
   }
+
 
   @Override
   public String getContextPath() {
     return "/example-web-plugin";
+  }
+
+  @Override
+  public List<String> getConfigFileNames() {
+    return List.of("test.json", "test.properties");
   }
 }
