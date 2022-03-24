@@ -6,8 +6,6 @@ import org.pf4j.PluginWrapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.util.List;
-
 /**
  * @author Stefan Spiska
  */
@@ -34,8 +32,4 @@ public class ExamplePlugin extends NonWebMvcEhrBasePlugin {
     return applicationContext;
   }
 
-  @Override
-  public List<String> getConfigFileNames() {
-    return List.of("test.yml");
-  }
 }

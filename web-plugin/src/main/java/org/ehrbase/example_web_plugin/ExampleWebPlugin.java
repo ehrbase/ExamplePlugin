@@ -7,8 +7,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import java.util.List;
-
 /**
  * @author Stefan Spiska
  */
@@ -42,8 +40,4 @@ public class ExampleWebPlugin extends WebMvcEhrBasePlugin {
     return "/example-web-plugin";
   }
 
-  @Override
-  public List<String> getConfigFileNames() {
-    return List.of("test.json", "test.properties");
-  }
 }
