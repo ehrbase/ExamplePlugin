@@ -19,7 +19,7 @@ public class ExampleWebPlugin extends WebMvcEhrBasePlugin {
   }
 
   @Override
-  public DispatcherServlet buildDispatcherServlet() {
+  protected DispatcherServlet buildDispatcherServlet() {
 
       ApplicationContext parentContext =
           ((SpringPluginManager) getWrapper().getPluginManager()).getApplicationContext();
