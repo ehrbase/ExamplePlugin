@@ -20,9 +20,12 @@ public class ExampleService {
 
     private final KnowledgeCacheService knowledgeCacheService;
 
-    public ExampleService(KnowledgeCacheService knowledgeCacheService) {
+  private final TestProperty testProperty;
+
+  public ExampleService(KnowledgeCacheService knowledgeCacheService, TestProperty testProperty) {
 
         this.knowledgeCacheService = knowledgeCacheService;
+    this.testProperty = testProperty;
     }
 
     public Map<String, String> getCreatedMap() {
@@ -42,6 +45,8 @@ public class ExampleService {
     @PostConstruct
     public void init(){
     System.out.println(this.getClass().getName());
+    System.out.println("env:");
+    System.out.println(testProperty);
     Assert.notNull(knowledgeCacheService, "Injection of knowledgeCacheService failed");
     }
 }

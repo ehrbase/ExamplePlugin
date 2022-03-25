@@ -1,17 +1,13 @@
 package org.ehrbase.example_plugin;
 
-
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * @author Stefan Spiska
  */
 @Configuration
 @ComponentScan(basePackages = {"org.ehrbase.example_plugin"})
-public class SpringConfiguration {
-
-
-
-}
+@EnableConfigurationProperties(TestProperty.class)
+public class SpringConfiguration {}

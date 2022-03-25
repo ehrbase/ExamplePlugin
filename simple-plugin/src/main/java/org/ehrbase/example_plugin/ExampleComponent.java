@@ -16,10 +16,12 @@ public class ExampleComponent {
 
 
     private final KnowledgeCacheService knowledgeCacheService;
+  private TestProperty testProperty;
 
-    public ExampleComponent(KnowledgeCacheService knowledgeCacheService) {
+  public ExampleComponent(KnowledgeCacheService knowledgeCacheService, TestProperty testProperty) {
 
         this.knowledgeCacheService = knowledgeCacheService;
+    this.testProperty = testProperty;
     }
 
 
@@ -36,6 +38,8 @@ public class ExampleComponent {
     @PostConstruct
     public void init(){
     System.out.println(this.getClass().getName());
+    System.out.println("env:");
+    System.out.println(testProperty);
 
     Assert.notNull(knowledgeCacheService, "Injection of knowledgeCacheService failed");
     }
