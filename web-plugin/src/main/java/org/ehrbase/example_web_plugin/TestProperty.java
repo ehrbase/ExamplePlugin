@@ -5,6 +5,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * @author Stefan Spiska
  */
+// Read from ${plugin-config-dir}\${plugin.id}\test.json and
+// Read from ${plugin-config-dir}\${plugin.id}\test.xml
 @ConfigurationProperties(prefix = "test")
 public class TestProperty {
 

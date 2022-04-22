@@ -5,6 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * @author Stefan Spiska
  */
+// Read from ${plugin-config-dir}\${plugin.id}\test.yml
 @ConfigurationProperties(prefix = "test.sub1")
 public class TestProperty {
 

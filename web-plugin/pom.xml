@@ -24,6 +24,7 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- Include the EHRbase bom -->
             <dependency>
                 <groupId>org.ehrbase.openehr</groupId>
                 <artifactId>bom</artifactId>
@@ -35,7 +36,6 @@
     </dependencyManagement>
 
     <dependencies>
-
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -55,42 +55,50 @@
             <artifactId>service</artifactId>
             <scope>provided</scope>
         </dependency>
+
+        <!-- not in the bom. needs to be included in the jar -->
+        <dependency>
+            <groupId>com.indvd00m.ascii.render</groupId>
+            <artifactId>ascii-render</artifactId>
+            <version>2.2.0</version>
+        </dependency>
+
     </dependencies>
+
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.4</version>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.0</version>
                 <configuration>
+                    <descriptors>
+                        <descriptor>src/main/assembly/assembly.xml</descriptor>
+                    </descriptors>
+                    <finalName>${project.artifactId}-${project.version}-plugin</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <attach>false</attach>
                     <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
                         <manifestEntries>
                             <Plugin-Id>${plugin.id}</Plugin-Id>
-                            <Plugin-Class>${plugin.class}</Plugin-Class>
                             <Plugin-Version>${plugin.version}</Plugin-Version>
                             <Plugin-Provider>${plugin.provider}</Plugin-Provider>
+                            <Plugin-Class>${plugin.class}</Plugin-Class>
                             <Plugin-Dependencies>${plugin.dependencies}</Plugin-Dependencies>
                         </manifestEntries>
                     </archive>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.3.0</version>
-                <configuration>
-                    <artifactSet>
-                        // explicitly include all dependencies not in ehrbase in the jar.
-                        <includes>
-                            <include>dummy</include>
-                        </includes>
-                    </artifactSet>
-                </configuration>
                 <executions>
                     <execution>
+                        <id>make-assembly</id>
                         <phase>package</phase>
                         <goals>
-                            <goal>shade</goal>
+                            <goal>single</goal>
                         </goals>
                     </execution>
                 </executions>
