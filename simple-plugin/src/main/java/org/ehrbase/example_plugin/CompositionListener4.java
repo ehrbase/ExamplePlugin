@@ -12,30 +12,24 @@ import org.ehrbase.plugin.extensionpoints.AbstractCompositionExtensionPoint;
 import org.pf4j.Extension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
+import org.springframework.core.PriorityOrdered;
 
 /**
  * @author Stefan Spiska
  */
-@Order(0)
+
 @Extension
-public class CompositionListener3 extends AbstractCompositionExtensionPoint {
-    private static final Logger log = LoggerFactory.getLogger(CompositionListener3.class);
+public class CompositionListener4 extends AbstractCompositionExtensionPoint implements PriorityOrdered {
+    private static final Logger log = LoggerFactory.getLogger(CompositionListener4.class);
 
-    private ExampleComponent ExampleComponent;
-
-    @Autowired
-    public CompositionListener3(ExampleComponent ExampleComponent) {
-
-        this.ExampleComponent = ExampleComponent;
+    @Override
+    public int getOrder() {
+        return 0;
     }
 
     @Override
     public CompositionWithEhrId beforeCreation(CompositionWithEhrId input) {
         log.info("Before Creation CompositionListener3");
-        ExampleComponent.add(
-            input.getComposition());
         return input;
     }
 
