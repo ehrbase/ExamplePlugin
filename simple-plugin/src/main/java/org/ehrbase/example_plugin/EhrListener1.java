@@ -1,8 +1,11 @@
 package org.ehrbase.example_plugin;
 
+import com.nedap.archie.rm.changecontrol.OriginalVersion;
 import com.nedap.archie.rm.ehr.EhrStatus;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Function;
+import org.ehrbase.plugin.dto.EhrStatusVersionRequestParameters;
 import org.ehrbase.plugin.dto.EhrStatusWithEhrId;
 import org.ehrbase.plugin.extensionpoints.AbstractEhrExtensionPoint;
 import org.pf4j.Extension;
@@ -59,23 +62,24 @@ public class EhrListener1 extends AbstractEhrExtensionPoint {
 
 
     @Override
-    public UUID beforeRetrieve(UUID input) {
+    public EhrStatusVersionRequestParameters beforeRetrieveAtVersion(EhrStatusVersionRequestParameters input) {
         log.info("Before Retrieve EhrListener1");
-        return super.beforeRetrieve(input);
+        return super.beforeRetrieveAtVersion(input);
     }
 
     @Override
-    public EhrStatus afterRetrieve(EhrStatus output) {
+    public Optional<OriginalVersion<EhrStatus>> afterRetrieveAtVersion(Optional<OriginalVersion<EhrStatus>> output) {
         log.info("After Retrieve EhrListener1");
-        return super.afterRetrieve(output);
+        return super.afterRetrieveAtVersion(output);
     }
 
     @Override
-    public EhrStatus aroundRetrieve(UUID input,
-                              Function<UUID, EhrStatus> chain) {
+    public Optional<OriginalVersion<EhrStatus>> aroundRetrieveAtVersion(EhrStatusVersionRequestParameters input,
+                                                                        Function<EhrStatusVersionRequestParameters,
+                                                                            Optional<OriginalVersion<EhrStatus>>> chain) {
         log.info("Around Retrieve start EhrListener1");
-        EhrStatus composition = super.aroundRetrieve(input, chain);
+        Optional<OriginalVersion<EhrStatus>> ehrStatusVersion = super.aroundRetrieveAtVersion(input, chain);
         log.info("Around Retrieve end EhrListener1");
-        return composition;
+        return ehrStatusVersion;
     }
 }
