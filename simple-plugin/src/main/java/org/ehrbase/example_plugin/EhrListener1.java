@@ -7,7 +7,8 @@ import java.util.UUID;
 import java.util.function.Function;
 import org.ehrbase.plugin.dto.EhrStatusVersionRequestParameters;
 import org.ehrbase.plugin.dto.EhrStatusWithEhrId;
-import org.ehrbase.plugin.extensionpoints.AbstractEhrExtensionPoint;
+import org.ehrbase.plugin.extensionpoints.EhrExtensionPoint;
+import org.ehrbase.plugin.extensionpoints.ExtensionPointHelper;
 import org.pf4j.Extension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,61 +17,55 @@ import org.slf4j.LoggerFactory;
  * @author Stefan Spiska
  */
 @Extension
-public class EhrListener1 extends AbstractEhrExtensionPoint {
+public class EhrListener1 implements EhrExtensionPoint {
     private static final Logger log = LoggerFactory.getLogger(EhrListener1.class);
 
-    @Override
     public EhrStatusWithEhrId beforeCreation(EhrStatusWithEhrId input) {
         log.info("Before Creation EhrListener1");
         return input;
     }
 
-    @Override
     public UUID afterCreation(UUID output) {
         log.info("After Creation EhrListener1");
-        return super.afterCreation(output);
+        return output;
     }
 
     @Override
     public UUID aroundCreation(EhrStatusWithEhrId input, Function<EhrStatusWithEhrId, UUID> chain) {
         log.info("Around Creation start EhrListener1");
-        UUID uuid = super.aroundCreation(input, chain);
+        UUID uuid = ExtensionPointHelper.beforeAndAfter(input, chain, this::beforeCreation, this::afterCreation);
         log.info("Around Creation end EhrListener1");
         return uuid;
     }
 
-    @Override
     public EhrStatusWithEhrId beforeUpdate(EhrStatusWithEhrId input) {
         log.info("Before Update EhrListener1");
-        return super.beforeUpdate(input);
+        return input;
     }
 
-    @Override
     public UUID afterUpdate(UUID output) {
         log.info("After Update EhrListener1");
-        return super.afterUpdate(output);
+        return output;
     }
 
     @Override
     public UUID aroundUpdate(EhrStatusWithEhrId input,
                              Function<EhrStatusWithEhrId, UUID> chain) {
         log.info("Around Update start EhrListener1");
-        UUID uuid = super.aroundUpdate(input, chain);
+        UUID uuid = ExtensionPointHelper.beforeAndAfter(input, chain, this::beforeUpdate, this::afterUpdate);
         log.info("Around Update end EhrListener1");
         return uuid;
     }
 
 
-    @Override
     public EhrStatusVersionRequestParameters beforeRetrieveAtVersion(EhrStatusVersionRequestParameters input) {
         log.info("Before Retrieve EhrListener1");
-        return super.beforeRetrieveAtVersion(input);
+        return input;
     }
 
-    @Override
     public Optional<OriginalVersion<EhrStatus>> afterRetrieveAtVersion(Optional<OriginalVersion<EhrStatus>> output) {
         log.info("After Retrieve EhrListener1");
-        return super.afterRetrieveAtVersion(output);
+        return output;
     }
 
     @Override
@@ -78,7 +73,8 @@ public class EhrListener1 extends AbstractEhrExtensionPoint {
                                                                         Function<EhrStatusVersionRequestParameters,
                                                                             Optional<OriginalVersion<EhrStatus>>> chain) {
         log.info("Around Retrieve start EhrListener1");
-        Optional<OriginalVersion<EhrStatus>> ehrStatusVersion = super.aroundRetrieveAtVersion(input, chain);
+        Optional<OriginalVersion<EhrStatus>> ehrStatusVersion =
+            ExtensionPointHelper.beforeAndAfter(input, chain, this::beforeRetrieveAtVersion, this::afterRetrieveAtVersion);
         log.info("Around Retrieve end EhrListener1");
         return ehrStatusVersion;
     }
