@@ -1,10 +1,10 @@
 package org.ehrbase.example_plugin;
 
 import java.util.function.Function;
+import org.ehrbase.openehr.sdk.response.dto.ehrscape.QueryResultDto;
 import org.ehrbase.plugin.dto.QueryWithParameters;
 import org.ehrbase.plugin.extensionpoints.ExtensionPointHelper;
 import org.ehrbase.plugin.extensionpoints.QueryExtensionPoint;
-import org.ehrbase.response.ehrscape.QueryResultDto;
 import org.pf4j.Extension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
